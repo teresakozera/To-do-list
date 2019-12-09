@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-// mongoose.connect('mongodb://localhost/to_do_list')
-//     .then(() => console.log('connected'))
-//     .catch(err => console.error('could not connect', err));
-
 const taskSchema = new mongoose.Schema({
     text: {
         type: String,
@@ -20,7 +16,11 @@ const taskSchema = new mongoose.Schema({
     done: {
         type: Boolean, 
         default: false
-    }
+    },
+    listId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }   
 });
 
 const Task = mongoose.model('Task', taskSchema);
@@ -30,9 +30,13 @@ function validateTask(task) {
       text: Joi.string().min(3).max(63).required(),
       description: Joi.string(),
       date: Joi.date(),
-      done: Joi.boolean()
+      done: Joi.boolean(),
+      listId: Joi.ObjectId().required()
     };
     return Joi.validate(task, schema);
 }
 
 // export
+exports.Task = Task;
+exports.validate = validateTask;
+//exports.taskSchema = taskSchema;
