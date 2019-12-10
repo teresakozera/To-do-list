@@ -1,3 +1,4 @@
+import "../css/fontello/css/fontello.css";
 const LISTS_LIMIT = 7;
 
 let listIndex = 0;
@@ -9,7 +10,8 @@ const plusListBtn = document.getElementById('plus-list').addEventListener('click
         let plusBtn = document.createElement('BUTTON');
 
         listTitle.innerHTML = `List${event.target.parentNode.parentNode.children.length}`;
-        plusBtn.innerHTML = "+";
+        $(plusBtn).addClass("icon-plus-outline");
+        plusBtn.innerHTML = "Add another item";        
         $(plusBtn).addClass("plus-task");
 
         divList.appendChild(listTitle);
@@ -39,7 +41,7 @@ $(document).on('click','.plus-task', e => {
     const divItem = document.createElement('div');
     // every div has a unique id- the information needed for the CRUD operations
     divItem.id=`list${listIndex}todo-item${index}`;
-    // $(divItem).addClass('item');
+    $(divItem).addClass('item');
     // $(divItem).addClass(`item${index}`);
 
     // create an item for the to-do list!
@@ -50,16 +52,17 @@ $(document).on('click','.plus-task', e => {
     const labelItem = document.createElement("INPUT");
     labelItem.setAttribute("type", "text");
     labelItem.id = `text${index}`;
+    labelItem.for = 'check-1';
     labelItem.htmlFor = `checkbox${index}`;
 
-    const minusButton = document.createElement('BUTTON');
-    minusButton.innerHTML = "-";
-    $(minusButton).addClass("minus-task");
+    const deleteButton = document.createElement('BUTTON');
+    $(deleteButton).addClass("icon-trash-empty");
+    $(deleteButton).addClass("minus-task");
 
     divItem.appendChild(br);
     divItem.appendChild(listItem);
     divItem.appendChild(labelItem);
-    divItem.appendChild(minusButton);
+    divItem.appendChild(deleteButton);
 
     e.target.parentNode.insertBefore(divItem, e.target);
 });

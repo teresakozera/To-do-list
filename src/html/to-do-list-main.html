@@ -7,18 +7,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Your to-do List</title>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="../css/to-do-list.css"> -->
 </head>
 
 <body>
+    <div id="navDiv">
+        <nav>
+            <ul>
+                
+                    
+                <!-- <li><a href="#"><i class="icon-search"></i></a></li> -->
+                
+                <li id="todolist"><a href="#">To-do list</a></li>
+                <div id="iconsDiv">
+                    <li id="home"><a href="#"><i class="icon-home-outline"></i></a></li>
+                    <li id="logout"><a href="#"><i class="icon-power-outline"></i></a></li>
+                </div>
+                
+                
+                <!-- <li><a href="#" onclick="alert('Funkcjonalność w budowie!')">Miejsca</a></li>
+                <li><a href="#" onclick="alert('Funkcjonalność w budowie!')">Linki</a></li> -->
+                <!-- <li><a href="#footer">Kontakt</a></li> -->
+            </ul>
+        </nav>
+    </div>
     <div class="lists">
         <!-- An exemplary list, list no 1-->
         <div class="list lis1">
             <p>List1</p>
-            <button class="plus-task">+Add another item</button>
+            <button class="plus-task"><i class="icon-plus-outline"></i> Add another item</button>
         </div>
         <div id="addList">
-            <button id="plus-list">+Add a list</button>
+            <button id="plus-list"><i class="icon-plus-outline"></i> Add a list</button>
         </div>
 
     </div>

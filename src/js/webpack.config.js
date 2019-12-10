@@ -18,7 +18,8 @@ module.exports = {
         ],
         mainPage: [
             './to-do-list-main.js',
-            '../css/to-do-list.css'
+            '../css/to-do-list.css',
+            '../css/fontello/css/fontello.css'
         ]
     },
     output: {
@@ -45,32 +46,32 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(png|jpg|gif|jpeg)$/,
                 use: [{
                     loader: "file-loader",
                     options: {}
                 }]
             },
-            {
-                test: /\.svg$/,
-                loader: 'url-loader?limit=65000&mimetype=image/svg+xml&name=font/[name].[ext]'
-            },
-            {
-                test: /\.woff$/,
-                loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=font/[name].[ext]'
-            },
-            {
-                test: /\.woff2$/,
-                loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=font/[name].[ext]'
-            },
-            {
-                test: /\.[ot]tf$/,
-                loader: 'url-loader?limit=65000&mimetype=application/octet-stream&name=font/[name].[ext]'
-            },
-            {
-                test: /\.eot$/,
-                loader: 'url-loader?limit=65000&mimetype=application/vnd.ms-fontobject&name=font/[name].[ext]'
-            }
+                {
+                    test: /\.svg$/,
+                    loader: 'url-loader?limit=65000&mimetype=image/svg+xml&name=font/[name].[ext]'
+                },
+                {
+                    test: /\.woff$/,
+                    loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=font/[name].[ext]'
+                },
+                {
+                    test: /\.woff2$/,
+                    loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=font/[name].[ext]'
+                },
+                {
+                    test: /\.[ot]tf$/,
+                    loader: 'url-loader?limit=65000&mimetype=application/octet-stream&name=font/[name].[ext]'
+                },
+                {
+                    test: /\.eot$/,
+                    loader: 'url-loader?limit=65000&mimetype=application/vnd.ms-fontobject&name=font/[name].[ext]'
+                }
         ]
     },
     plugins: [
