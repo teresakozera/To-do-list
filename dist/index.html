@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To-do-list</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- <link rel="stylesheet" type="text/css" href="../css/index.css"> -->
 
 <link href="loginPage.css" rel="stylesheet"></head>
@@ -39,14 +40,13 @@
         <div class="login" style="display: none">
             <!-- <form action="action_page.php" method="post"> -->
             <form class="form" action="main.html">
-                <div class="imgcontainer">
-                    <img src="../../img/avatar.png" alt="Avatar" class="avatar">
-                </div>
-
                 <div class="container">
-                        <h1>Log in to your to-do-list!</h1>
-                        <p>Provide all the necessary information.</p>
-                        <hr>
+                    <h1>Log in to your to-do-list!</h1>
+                    <p>Provide all the necessary information.</p>
+                    <hr>
+                    <div class="imgcontainer">
+                            <!-- <img src="../../img/avatar.png" alt="Avatar" class="avatar"> -->
+                    </div>
                     <label for="uname"><b>Username</b></label>
                     <input type="text" placeholder="Enter Username" name="uname">
                     <!-- HERE and with password- later on should be required, now for the first stage without 
@@ -62,15 +62,15 @@
                     <input type="checkbox" checked="checked" name="remember"> Remember me
                     </label> -->
                 </div>
-
                 <div class="container signup">
                     <p>Wish to create an account? <a id="hrefRegister" href="#">Sign up</a>.</p>
                 </div>
             </form>
         </div>
     </div>
-
-
+    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light">
+            <p>Twórcy: Kozera Teresa, Matejuk Kamil, Sołdaczuk Marek</p>
+    </nav>
     <!-- <script type="text/javascript" src="../js/start.js"></script> -->
 <script type="text/javascript" src="loginPage.js"></script></body>
 
