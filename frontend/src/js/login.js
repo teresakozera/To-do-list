@@ -9,16 +9,18 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
         password: pass
     });
 
+    let token = undefined;
     const xhr = new XMLHttpRequest();
     xhr.onloadend = function () {
         if(xhr.status != 200) {
             alert(xhr.response);
         } else {
+            token = xhr.response;
             window.location.replace('./main.html');
         }
     };
     xhr.open("POST", "http://localhost:3000/api/auth/");
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(usr);
-
 });
+
