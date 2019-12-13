@@ -19,7 +19,6 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         if(xhr.status != 200) {
             alert(xhr.response);
         } else {
-            const id = JSON.parse(xhr.response)._id;
             window.location.replace('./main.html');
         }
     };

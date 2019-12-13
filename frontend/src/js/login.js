@@ -11,9 +11,14 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
     const xhr = new XMLHttpRequest();
     xhr.onloadend = function () {
-        alert(xhr.response);
+        if(xhr.status != 200) {
+            alert(xhr.response);
+        } else {
+            window.location.replace('./main.html');
+        }
     };
     xhr.open("POST", "http://localhost:3000/api/auth/");
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(usr);
 
 });
