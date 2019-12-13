@@ -14,10 +14,14 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         password: pass
     });
 
-    // TODO nauczyć się wysyłać zapytania
     const xhr = new XMLHttpRequest();
     xhr.onloadend = function () {
-        alert(this.status);
+        if(xhr.status != 200) {
+            alert(xhr.response);
+        } else {
+            console.log(JSON.parse(xhr.response)._id);
+            //TODO go to main page
+        }
     };
     xhr.open("POST", "http://localhost:3000/api/users/");
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -37,14 +41,16 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     });
 
     const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.open("POST", "http://localhost:3000/api/auth");
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            alert(xhr.status);
+    xhr.onloadend = function () {
+        if(xhr.status != 200) {
+            alert(xhr.response);
+        } else {
+            alert(xhr.response.id);
+            //TODO go to main page
         }
     };
+    xhr.open("POST", "http://localhost:3000/api/auth/");
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(usr);
 
 });
