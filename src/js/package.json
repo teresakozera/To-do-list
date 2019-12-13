@@ -3,22 +3,27 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack-dev-server --mode=development",
-        "build": "webpack --mode=production"
+        "front-dev": "webpack-dev-server --config ./webpack-front.config.js --mode=development",
+        "front-build": "webpack --config ./webpack-front.config.js --mode=production",
+        "back-build": "webpack --config ./webpack-back.config.js --mode=production"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
         "joi": "^14.3.1",
-        "mongoose": "^5.7.14"
+        "mongoose": "^5.8.1",
+        "net": "^1.0.2",
+        "webpack-node-externals": "^1.7.2"
     },
     "description": "",
     "devDependencies": {
         "@babel/core": "^7.7.5",
         "@babel/preset-env": "^7.7.6",
         "babel-loader": "^8.0.6",
-        "css-loader": "^3.3.0",
+        "css-loader": "^3.3.2",
         "file-loader": "^5.0.2",
         "html-webpack-plugin": "^3.2.0",
         "mini-css-extract-plugin": "^0.8.0",

@@ -14,7 +14,7 @@
 <body>
     <div class="forms">
         <div class="registration">
-            <form action="action_page.php">
+            <form action="action_page.php" id="registerForm">
                 <div class="container">
                     <h1>Register for have-it-all-to-do-list!</h1>
                     <p>In order to create an account, please fill in the form below.</p>
@@ -33,13 +33,13 @@
                 </div>
 
                 <div class="container signin">
-                    <p>Already have an account? <a id="hrefLogin" href="#">Sign in</a>.</p>
+                    <p>Already have an account? <a id="hrefLogin" href="#">Log in</a>.</p>
                 </div>
             </form>
         </div>
         <div class="login" style="display: none">
             <!-- <form action="action_page.php" method="post"> -->
-            <form class="form" action="main.html">
+            <form class="form" action="main.html" id="loginForm">
                 <div class="container">
                     <h1>Log in to your to-do-list!</h1>
                     <p>Provide all the necessary information.</p>
@@ -48,15 +48,15 @@
                             <!-- <img src="../../img/avatar.png" alt="Avatar" class="avatar"> -->
                     </div>
                     <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname">
+                    <input type="text" placeholder="Enter Username" name="uname" required>
                     <!-- HERE and with password- later on should be required, now for the first stage without 
                         <input type="text" placeholder="Enter Username" name="uname" required> -->
 
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw">
+                    <input type="password" placeholder="Enter Password" name="psw" required>
                     <!-- <input type="password" placeholder="Enter Password" name="psw" required> -->
 
-                    <button type="submit" id="loginbtn" class="loginbtn">Login</button>
+                    <button type="submit" class="loginbtn">Login</button>
                     <!-- Remember me option 
                         <label>
                     <input type="checkbox" checked="checked" name="remember"> Remember me

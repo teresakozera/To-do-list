@@ -11,9 +11,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        //  W TYM MIEJSCU DODAJEMY ZALEŻNE JS I CSS, A NIE W HTML
+        //  W TYM MIEJSCU DODAJEMY ZALEŻNE JS (tylko front-end) I CSS, A NIE W HTML
         loginPage: [
             './start.js',
+            './register.js',
             '../css/index.css'
         ],
         mainPage: [
@@ -22,6 +23,7 @@ module.exports = {
             '../css/fontello/css/fontello.css'
         ]
     },
+    target: 'web',
     output: {
         path: path.resolve(__dirname, '../../dist'),
         filename: '[name].js'
@@ -52,26 +54,26 @@ module.exports = {
                     options: {}
                 }]
             },
-                {
-                    test: /\.svg$/,
-                    loader: 'url-loader?limit=65000&mimetype=image/svg+xml&name=font/[name].[ext]'
-                },
-                {
-                    test: /\.woff$/,
-                    loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=font/[name].[ext]'
-                },
-                {
-                    test: /\.woff2$/,
-                    loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=font/[name].[ext]'
-                },
-                {
-                    test: /\.[ot]tf$/,
-                    loader: 'url-loader?limit=65000&mimetype=application/octet-stream&name=font/[name].[ext]'
-                },
-                {
-                    test: /\.eot$/,
-                    loader: 'url-loader?limit=65000&mimetype=application/vnd.ms-fontobject&name=font/[name].[ext]'
-                }
+            {
+                test: /\.svg$/,
+                loader: 'url-loader?limit=65000&mimetype=image/svg+xml&name=font/[name].[ext]'
+            },
+            {
+                test: /\.woff$/,
+                loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=font/[name].[ext]'
+            },
+            {
+                test: /\.woff2$/,
+                loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=font/[name].[ext]'
+            },
+            {
+                test: /\.[ot]tf$/,
+                loader: 'url-loader?limit=65000&mimetype=application/octet-stream&name=font/[name].[ext]'
+            },
+            {
+                test: /\.eot$/,
+                loader: 'url-loader?limit=65000&mimetype=application/vnd.ms-fontobject&name=font/[name].[ext]'
+            }
         ]
     },
     plugins: [
