@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -21,8 +23,14 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.methods.generateAuthToken = function(){
+    const token = jwt.sign({_id: this._id}, config.get('jwtPrivateKey'));
+    return token;
+}
+
 const User = mongoose.model('User', userSchema);
 
+// ewentualnie można sie zastanowic nad uzyciem 'joi-password-complexity' jak bedzie czas
 function validateUser(user) {
     const schema = {
       email: Joi.string().min(5).max(63).required().email(),
