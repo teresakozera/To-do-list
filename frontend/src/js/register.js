@@ -19,7 +19,7 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
     xhr.onloadend = function () {
         alert(this.status);
     };
-    xhr.open("POST", "https://localhost:3000/api/users/");
+    xhr.open("POST", "http://localhost:3000/api/users/");
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(usr);
     
@@ -38,7 +38,7 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    xhr.open("POST", "https://localhost:3000/api/auth");
+    xhr.open("POST", "http://localhost:3000/api/auth");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {

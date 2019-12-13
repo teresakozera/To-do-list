@@ -1,6 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 // https://medium.com/code-oil/webpack-javascript-bundling-for-both-front-end-and-back-end-b95f1b429810
@@ -12,7 +10,7 @@ module.exports = {
     },
     target: 'node',
     output: {
-        path: path.resolve(__dirname, '../js'),
+        path: path.resolve(__dirname),
         filename: 'bundle-back.js'
     },
     externals: [nodeExternals()]
