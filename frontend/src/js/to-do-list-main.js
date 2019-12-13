@@ -82,7 +82,3 @@ $(document).on('click','.minus-task', e => {
     let divToDelete = e.currentTarget.parentNode;
     divToDelete.remove();
 });
-
-const logoutBtn = document.getElementById('logout').addEventListener('click', (e) => {
-    alert('Should log out!');
-});
