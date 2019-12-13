@@ -11,15 +11,9 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
     const xhr = new XMLHttpRequest();
     xhr.onloadend = function () {
-        if(xhr.status != 200) {
-            alert(xhr.response);
-        } else {
-            alert(xhr.response.id);
-            //TODO go to main page
-        }
+        alert(xhr.response);
     };
     xhr.open("POST", "http://localhost:3000/api/auth/");
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(usr);
 
 });
