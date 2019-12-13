@@ -19,38 +19,12 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         if(xhr.status != 200) {
             alert(xhr.response);
         } else {
-            console.log(JSON.parse(xhr.response)._id);
-            //TODO go to main page
+            const id = JSON.parse(xhr.response)._id;
+            window.location.replace('./main.html');
         }
     };
     xhr.open("POST", "http://localhost:3000/api/users/");
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(usr);
     
-});
-
-// login clicked
-document.getElementById('loginForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const mail = document.getElementById('log_email').value;
-    const pass = document.getElementById('log_psw').value;
-
-    const usr = JSON.stringify({
-        email: mail,
-        password: pass
-    });
-
-    const xhr = new XMLHttpRequest();
-    xhr.onloadend = function () {
-        if(xhr.status != 200) {
-            alert(xhr.response);
-        } else {
-            alert(xhr.response.id);
-            //TODO go to main page
-        }
-    };
-    xhr.open("POST", "http://localhost:3000/api/auth/");
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.send(usr);
-
 });

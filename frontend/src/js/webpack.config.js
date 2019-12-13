@@ -15,10 +15,12 @@ module.exports = {
         loginPage: [
             './start.js',
             './register.js',
+            './login.js',
             '../css/index.css'
         ],
         mainPage: [
             './to-do-list-main.js',
+            './load-data.js',
             '../css/to-do-list.css',
             '../css/fontello/css/fontello.css'
         ]
