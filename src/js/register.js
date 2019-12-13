@@ -13,7 +13,8 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         email: mail,
         password: pass
     };
-        
+    
+    // TODO nauczyć się wysyłać zapytania
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "https://localhost:3000/api/users/", true);
     xhr.send(JSON.stringify(usr));
