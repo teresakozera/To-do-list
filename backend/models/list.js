@@ -8,7 +8,9 @@ const listSchema = new mongoose.Schema({
         default: 'New List'
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String, //mongoose.Schema.Types.ObjectId,
+        // type: Number,
+        // default: 123,
         required: true
     } 
 });
@@ -18,7 +20,7 @@ const List = mongoose.model('List', listSchema);
 function validateList(list) {
     const schema = {
       name: Joi.string().max(63),
-      userId: Joi.ObjectId().required()
+      userId: Joi.string().required()
     };
     return Joi.validate(list, schema);
 }
