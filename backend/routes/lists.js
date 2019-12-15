@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const {List, validate} = require('../models/list.js');
+
 const express = require('express');
 const router = express.Router();
 
@@ -10,14 +11,18 @@ router.post('/', async (req, res) => {
     // let list = new List({ name: req.body.name, userId: req.body.id });
     let list = new List({ });
     list.name = req.body.name;
-    list.userId = req.body.userId; 
+    list.userId = req.user._id; 
+    list.items = req.body.items;
     list = await list.save();
   
     res.send(list);
 });
 
 router.get('/', async (req, res) => {
-    const lists = await List.find().sort('name');
+    console.log(`req.user: ${JSON.stringify(req.user)}`); 
+    
+    const lists = await List.find({ userId: req.user._id }).sort('name');
+    
     res.send(lists);
 });
 
@@ -25,27 +30,32 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const list = await List.findById(req.params.id);
     
-    if (!list) return res.status(404).send('The list with the given ID was not found.');
+    // checking whether it is a user's list
+    if (list.userId !== req.user._id) return res.status(404).send('The list with the given user ID was not found.');
     res.send(list);    
 });
 
 router.delete('/:id', async (req, res) => {
     const list = await List.findByIdAndRemove(req.params.id);
     
-    if (!list) return res.status(404).send('The list with the given ID was not found.');
+    // checking whether it is a user's list
+    if (list.userId !== req.user._id) return res.status(404).send('The list with the given ID was not found.');
     res.send(list);
 });
 
 router.put('/:id', async (req, res) => {
-    const list = await List.findById(req.params.id);
+    let list = await List.findById(req.params.id);
 
-    if (!list) res.status(404).send('The course with the given ID was not found');
+    // checking whether it is a user's list
+    if (list.userId !== req.user._id) res.status(404).send('The course with the given ID was not found');
     const { error } = validate(req.body); 
     
     if (error) return res.status(400).send(error.details[0].message);
 
     list.name = req.body.name;
-    list.userId = req.body.id;
+    list.items = req.body.items;
+    // list.userId = req.user._id;
+    list = await list.save();
 
     res.send(list);
 });

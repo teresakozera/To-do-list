@@ -16,6 +16,7 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
             alert(xhr.response);
         } else {
             token = xhr.response;
+            window.localStorage.setItem("token", token);
             window.location.replace('./main.html');
         }
     };

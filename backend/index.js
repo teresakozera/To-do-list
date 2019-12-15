@@ -4,6 +4,7 @@ const cors = require('cors')
 const users = require('./routes/users.js');
 const lists = require('./routes/lists.js');
 const auth = require('./routes/auth.js');
+const tokenAuth = require('./middleware/auth');
 const express = require('express');
 const app = express();
 
@@ -25,7 +26,7 @@ mongoose.connect('mongodb://localhost/to_do_list', {
 app.use(express.json());
 app.use(cors());
 app.use('/api/users', users);
-app.use('/api/lists', lists);
+app.use('/api/lists', tokenAuth , lists);
 app.use('/api/auth', auth);
 
 const port = process.env.PORT || 3000;

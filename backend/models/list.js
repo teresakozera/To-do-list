@@ -9,10 +9,13 @@ const listSchema = new mongoose.Schema({
     },
     userId: {
         type: String, //mongoose.Schema.Types.ObjectId,
-        // type: Number,
-        // default: 123,
-        required: true
-    } 
+    }, 
+    items: [
+        {
+            name: String,
+            done: Boolean
+        }
+    ]
 });
 
 const List = mongoose.model('List', listSchema);
@@ -20,7 +23,8 @@ const List = mongoose.model('List', listSchema);
 function validateList(list) {
     const schema = {
       name: Joi.string().max(63),
-      userId: Joi.string().required()
+      items: Joi.array().optional()
+    //   userId: Joi.string().required()
     };
     return Joi.validate(list, schema);
 }
