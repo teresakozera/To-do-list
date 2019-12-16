@@ -8,12 +8,15 @@ const listSchema = new mongoose.Schema({
         default: 'New List'
     },
     userId: {
-        type: String, //mongoose.Schema.Types.ObjectId,
+        type: String, 
     }, 
     items: [
         {
             name: String,
-            done: Boolean
+            done: {
+                type: Boolean,
+                default: false
+            }
         }
     ]
 });
@@ -24,7 +27,6 @@ function validateList(list) {
     const schema = {
       name: Joi.string().max(63),
       items: Joi.array().optional()
-    //   userId: Joi.string().required()
     };
     return Joi.validate(list, schema);
 }

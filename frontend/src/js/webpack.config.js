@@ -21,7 +21,6 @@ module.exports = {
         mainPage: [
             './to-do-list-main.js',
             './logout.js',
-            './load-data.js',
             '../css/to-do-list.css',
             '../css/fontello/css/fontello.css'
         ]

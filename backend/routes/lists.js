@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
+    // console.log(req.body);
   
     // let list = new List({ name: req.body.name, userId: req.body.id });
     let list = new List({ });
@@ -19,9 +20,10 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    console.log(`req.user: ${JSON.stringify(req.user)}`); 
+    // console.log(`req.user: ${JSON.stringify(req.user)}`); 
     
-    const lists = await List.find({ userId: req.user._id }).sort('name');
+    // const lists = await List.find({ userId: req.user._id }).sort('name');
+    const lists = await List.find({ userId: req.user._id });
     
     res.send(lists);
 });
@@ -54,7 +56,6 @@ router.put('/:id', async (req, res) => {
 
     list.name = req.body.name;
     list.items = req.body.items;
-    // list.userId = req.user._id;
     list = await list.save();
 
     res.send(list);

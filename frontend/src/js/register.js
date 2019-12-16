@@ -12,13 +12,15 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
     const usr = JSON.stringify({
         email: mail,
         password: pass
-    });
+    }); 
 
     const xhr = new XMLHttpRequest();
     xhr.onloadend = function () {
         if(xhr.status != 200) {
             alert(xhr.response);
         } else {
+            let token = xhr.response;
+            window.localStorage.setItem("token", token);
             window.location.replace('./main.html');
         }
     };
