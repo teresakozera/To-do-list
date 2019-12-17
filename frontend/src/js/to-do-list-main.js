@@ -1,71 +1,56 @@
 import "../css/fontello/css/fontello.css";
 
-// button + when there are lists of a user a hidden initial list + 6 lists that are permitted
+// button + 6 lists that are permitted
 const LISTS_LIMIT = 7;
 let listIndex = 0;
 let getListFromDB;
 
 const refreshList = ()=> {
     const xhr = new XMLHttpRequest();
-    const token = window.localStorage.getItem("token");
     xhr.open("GET", "http://localhost:3000/api/lists/");
     xhr.setRequestHeader('x-auth-token', window.localStorage.getItem("token"));
     xhr.send();
     
-
     xhr.onload = function () {
-        if (xhr.status != 200) { // analyze HTTP status of the response
-            console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-        } else { // show the result
+        if (xhr.status != 200) {
+            console.log(`Error ${xhr.status}: ${xhr.statusText}`);
+        } else {
+            // remove all the lists 
             $('.list').remove()
 
             getListFromDB = JSON.parse(xhr.response);
-
+            // ... and recreate all the lists
             for (let i = 0; i < getListFromDB.length; i++) {
                 const parentDiv = document.getElementsByClassName('lists')[0];
-
+                // remember about the limit of the number of lists
                 if (parentDiv.children.length > LISTS_LIMIT)
                 {
                     break;
                 }
-                const divList = document.createElement('div');
-
-                divList.setAttribute('data-id', `${getListFromDB[i]._id}`);
-                $(divList).addClass('list');
-                // add divList#number- depending on how many iteams are aldready on the page
-                $(divList).addClass(`list${i}`);
-
+                // lists
                 const listTitle = document.createElement('INPUT');
                 listTitle.setAttribute("value", `${getListFromDB[i].name}`);
 
                 let label = "";
                 listTitle.addEventListener('keydown', (e) => {
-                    console.log('In event lsitener for lists, onload');
-                    // checking the keys and assigning proper values to the labels
-                    label = manageKeysForLabels(listTitle, e, label);
+                    setTimeout(()=>{
+                        // checking the keys and assigning proper values to the labels
+                        label = manageKeysForLabels(listTitle, e, label);
+                        listTitle.setAttribute("value", `${getListFromDB[i].name.concat(label)}`);
+                        $(listTitle).setCursorPosition(`${listTitle.value.length}`);
+                        }, 0)
+                    });
 
-                    listTitle.setAttribute("value", `${getListFromDB[i].name.concat(label)}`);
-                    $(listTitle).setCursorPosition(`${listTitle.value.length}`);
-                });
-
+                const divList = document.createElement('div');
+                $(divList).addClass('list');
+                // add divList#number- depending on how many iteams are oldready on the page
+                $(divList).addClass(`list${i}`);
+                divList.setAttribute('data-id', `${getListFromDB[i]._id}`);
+                
                 const listHeader = document.createElement('div');
                 $(listHeader).addClass('list-header');
                 listHeader.appendChild(listTitle);
-
                 divList.appendChild(listHeader);
-
-                const plusBtn = document.createElement('BUTTON');
-                $(plusBtn).addClass("icon-plus-outline");
-                plusBtn.innerHTML = "Add another item";
-                $(plusBtn).addClass("plus-task");
-
-                const saveBtn = document.createElement('BUTTON');
-                saveBtn.id = "saveBtn";
-                saveBtn.innerHTML = "Save list";
-
-                const deleteBtn = document.createElement('BUTTON');
-                deleteBtn.id = "deleteBtn";
-                deleteBtn.innerHTML = "Delete list";
 
                 const listItems = document.createElement('div');
                 $(listItems).addClass('list-items');
@@ -73,7 +58,14 @@ const refreshList = ()=> {
                 const addAListBTN = document.getElementById("addList");
                 
                 parentDiv.insertBefore(divList, addAListBTN);
+
+                // items for lists
                 for (let j = 0; j < getListFromDB[i].items.length; j++) {
+                    // create an item for the to-do list!
+                    const listItem = document.createElement('INPUT');
+                    listItem.id = `checkbox${j}`;
+                    listItem.setAttribute("type", "checkbox");
+
                     //index - here: j
                     const br = document.createElement("br");
                     const divItem = document.createElement('div');
@@ -81,13 +73,11 @@ const refreshList = ()=> {
                     divItem.id = `list${listIndex}todo-item${j}`;
                     $(divItem).addClass('item');
 
-                    // create an item for the to-do list!
-                    const listItem = document.createElement('INPUT');
-                    listItem.id = `checkbox${j}`;
-                    listItem.setAttribute("type", "checkbox");
+                    const labelItem = document.createElement("INPUT");
+                    labelItem.setAttribute("type", "text");
+                    labelItem.id = `text${j}`;
                     
                     let isChecked =  getListFromDB[i].items[j].done;  // Is it Done on the DB
-                     
                     if (isChecked === true) { //YES
                         $(listItem).attr('checked', 'checked'); //ADD CHECKED
                         $(listItem).trigger('change'); //TRIGGER CHANGE
@@ -96,46 +86,21 @@ const refreshList = ()=> {
                         $(listItem).trigger('change'); // TRIGGER CHANGE
                     }
                     
-                    const labelItem = document.createElement("INPUT");
-                    labelItem.setAttribute("type", "text");
-                    labelItem.id = `text${j}`;
-                    labelItem.for = 'check-1';
-                    labelItem.htmlFor = `checkbox${j}`;
                     labelItem.setAttribute("value", `${getListFromDB[i].items[j].name}`);
-
                     let label = "";
-                    // labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
                     labelItem.addEventListener('keydown', (e) => {
-                    console.log('In event listener, onload, labelItem');
-                    label = manageKeysForLabels(labelItem, e, label);
-
-                    labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
-                    $(labelItem).setCursorPosition(`${labelItem.value.length}`);
-                    console.log(labelItem.getAttribute("value"));
-                });
-
-
-                const deleteButton = document.createElement('BUTTON');
-                $(deleteButton).addClass("icon-trash-empty");
-                $(deleteButton).addClass("minus-task");
-
-                divItem.appendChild(br);
-                divItem.appendChild(listItem);
-                divItem.appendChild(labelItem);
-                divItem.appendChild(deleteButton);
-
+                        setTimeout(()=>{
+                            label = manageKeysForLabels(labelItem, e, label);
+                            labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
+                            $(labelItem).setCursorPosition(`${labelItem.value.length}`);
+                        },0)
+                    });
+                appendElementsToDiv(divItem, br, listItem, labelItem, listItems);
                 listItems.appendChild(divItem);
-
                 }
-
-                divList.appendChild(listItems);
-                divList.appendChild(plusBtn);
-                divList.appendChild(saveBtn);
-                divList.appendChild(deleteBtn);
-                listIndex++;
+                appendDivWithElements(divList, listItems);
             }
         }
-        
     };
 }
 
@@ -145,107 +110,79 @@ window.onload = () => {
 
 const plusListBtn = document.getElementById('plus-list').addEventListener('click', (e) => {
     if (event.currentTarget.parentNode.parentNode.children.length < LISTS_LIMIT) {
-        const divList = document.createElement('div');
-        $(divList).addClass('list');
-
-        $(divList).addClass(`list${listIndex}`);
         const listTitle = document.createElement('INPUT');
         let label = "";
         listTitle.addEventListener('keydown', (e) => {
-        console.log('In event lsitener for lists, addList');
-        label = manageKeysForLabels(listTitle, e, label);
-
-            listTitle.setAttribute("value", `${label}`);
-            $(listTitle).setCursorPosition(`${listTitle.value.length}`);
+            setTimeout(()=>{
+                label = manageKeysForLabels(listTitle, e, label);
+                listTitle.setAttribute("value", `${label}`);
+                $(listTitle).setCursorPosition(`${listTitle.value.length}`);
+                }, 0)
         });
+
+        const divList = document.createElement('div');
+        $(divList).addClass('list');
+        $(divList).addClass(`list${listIndex}`);
 
         const listHeader = document.createElement('div');
         $(listHeader).addClass('list-header');
         listHeader.appendChild(listTitle);
-
         divList.appendChild(listHeader);
 
         const listItems = document.createElement('div');
         $(listItems).addClass('list-items');
 
-        const plusBtn = document.createElement('BUTTON');
-        $(plusBtn).addClass("icon-plus-outline");
-        plusBtn.innerHTML = "Add another item";
-        $(plusBtn).addClass("plus-task");
-
-        const saveBtn = document.createElement('BUTTON');
-        saveBtn.id = "saveBtn";
-        saveBtn.innerHTML = "Save list";
-
-        const deleteBtn = document.createElement('BUTTON');
-        deleteBtn.id = "deleteBtn";
-        deleteBtn.innerHTML = "Delete list";
-
-        divList.appendChild(listItems);
-        divList.appendChild(plusBtn);
-        divList.appendChild(saveBtn);
-        divList.appendChild(deleteBtn);
+        appendDivWithElements(divList, listItems);
 
         // add a div to the DOM
         // move the '+Add a list' button to the right of newly inserted list
         event.currentTarget.parentNode.parentNode.insertBefore(divList, event.currentTarget.parentNode);
-        listIndex++;
     } else {
         alert('Too many lists created. You can have up to six lists active!');
     }
 });
 
-
 // event delegation- otherwise this event handler would not work for dynamically created elements
 $(document).on('click', '.plus-task', e => {
-    console.log('Plus task!');
-    // start every item with a new line
-    const br = document.createElement("br");
     // needed for the numeration of divs (needed for handling with the backend which)
     const index = event.target.previousSibling.children.length;
 
+    // create an item for the to-do list!
+    const listItem = document.createElement('INPUT');
+    listItem.id = `checkbox${index}`;
+    listItem.setAttribute("type", "checkbox");  
+
+    // start every item with a new line
+    const br = document.createElement("br");
+    
     const divItem = document.createElement('div');
     // every div has a unique id- the information needed for the CRUD operations
     divItem.id = `${index}`;
     $(divItem).addClass('item');
 
-    // create an item for the to-do list!
-    const listItem = document.createElement('INPUT');
-    listItem.id = `checkbox${index}`;
-    listItem.setAttribute("type", "checkbox");    
-
     const labelItem = document.createElement("INPUT");
     labelItem.setAttribute("type", "text");
     labelItem.id = `text${index}`;
-    labelItem.for = 'check-1';
-    labelItem.htmlFor = `checkbox${index}`;
+
     let label = "";
-    // labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
     labelItem.addEventListener('keydown', (e) => {
-        console.log('In event listener, add labelItem');
-        label = manageKeysForLabels(labelItem, e, label);
-        labelItem.setAttribute("value", `${label}`);
-        $(labelItem).setCursorPosition(`${labelItem.value.length}`);
-    });
+        setTimeout(()=>{
+            label = manageKeysForLabels(labelItem, e, label);
+            labelItem.setAttribute("value", `${label}`);
+            $(labelItem).setCursorPosition(`${labelItem.value.length}`);
+            }, 0)
+        });
 
-    const deleteButton = document.createElement('BUTTON');
-    $(deleteButton).addClass("icon-trash-empty");
-    $(deleteButton).addClass("minus-task");
-
-    divItem.appendChild(br);
-    divItem.appendChild(listItem);
-    divItem.appendChild(labelItem);
-    divItem.appendChild(deleteButton);
+    appendElementsToDiv(divItem, br, listItem, labelItem);
 
     $(event.target).parents(`.list`).first().children('.list-items').first().append(divItem);
 });
 
-// DB deleting
 $(document).on('click', '#deleteBtn', e => {
     let divToDelete = e.currentTarget.parentNode;
     divToDelete.remove();
 
-    var xhr = new XMLHttpRequest(); // new HttpRequest instance 
+    var xhr = new XMLHttpRequest();
     xhr.open("DELETE", `http://localhost:3000/api/lists/${divToDelete.getAttribute("data-id")}`);
     xhr.setRequestHeader('x-auth-token', window.localStorage.getItem("token"));
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -273,7 +210,7 @@ $(document).on('click', '#saveBtn', e => {
     POSTObject.name = listName;
     POSTObject.items = listItems;
 
-    var xhr = new XMLHttpRequest(); // new HttpRequest instance 
+    var xhr = new XMLHttpRequest();
 
     xhr.onload = function () {
         refreshList();
@@ -308,8 +245,7 @@ $.fn.setCursorPosition = function(pos) {
   };
 
   const manageKeysForLabels = (title, e, label) => {
-    //setting the coursor not to appear at the beginning of the input (it didn't have any impact on the value but looked
-    // confusing..)
+    //setting the coursor not to appear at the beginning of the input (it didn't have any impact on the value but looked confusing..)
     $(title).setCursorPosition(`${title.value.length}`);
     switch(e.key)
     {
@@ -332,10 +268,55 @@ $.fn.setCursorPosition = function(pos) {
         case "Home":
             break;
         default:
-            console.log(e.key);
             label += e.key;
             break;
     }
-    console.log(`label again: ${label}`);
     return label;
   };
+
+  const appendElementsToDiv = (divItem, br, listItem, labelItem) => {
+    const deleteButton = document.createElement('BUTTON');
+    $(deleteButton).addClass("icon-trash-empty");
+    $(deleteButton).addClass("minus-task");
+
+    divItem.appendChild(br);
+    divItem.appendChild(listItem);
+    divItem.appendChild(labelItem);
+    divItem.appendChild(deleteButton);
+  };
+
+  const createSaveBtn = () => {
+    const saveBtn = document.createElement('BUTTON');
+    saveBtn.id = "saveBtn";
+    saveBtn.innerHTML = "Save list";
+    return saveBtn;
+  };
+  
+  const createDeleteBtn = () => {
+    const deleteBtn = document.createElement('BUTTON');
+    deleteBtn.id = "deleteBtn";
+    deleteBtn.innerHTML = "Delete list";
+    return deleteBtn;
+  };
+
+  const createPlusBtn = () => {
+    const plusBtn = document.createElement('BUTTON');
+    $(plusBtn).addClass("icon-plus-outline");
+    plusBtn.innerHTML = "Add another item";
+    $(plusBtn).addClass("plus-task");
+    return plusBtn;
+  };
+
+  const appendDivWithElements = (divList, listItems) => {
+    const plusBtn = createPlusBtn();
+    const saveBtn = createSaveBtn();
+    const deleteBtn = createDeleteBtn();
+
+    divList.appendChild(listItems);
+    divList.appendChild(plusBtn);
+    divList.appendChild(saveBtn);
+    divList.appendChild(deleteBtn);
+
+    listIndex++;
+  };
+  

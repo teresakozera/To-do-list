@@ -20,9 +20,6 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    // console.log(`req.user: ${JSON.stringify(req.user)}`); 
-    
-    // const lists = await List.find({ userId: req.user._id }).sort('name');
     const lists = await List.find({ userId: req.user._id });
     
     res.send(lists);
@@ -49,15 +46,19 @@ router.put('/:id', async (req, res) => {
     let list = await List.findById(req.params.id);
 
     // checking whether it is a user's list
-    if (list.userId !== req.user._id) res.status(404).send('The course with the given ID was not found');
+    if (list.userId !== req.user._id) res.status(404).send('The list with the given ID was not found');
     const { error } = validate(req.body); 
     
     if (error) return res.status(400).send(error.details[0].message);
 
     list.name = req.body.name;
     list.items = req.body.items;
-    list = await list.save();
-
+    try {
+        list = await list.save();
+    }
+    catch(e) {
+        res.status(404).send('The list with the given ID was not found');
+    }
     res.send(list);
 });
 
