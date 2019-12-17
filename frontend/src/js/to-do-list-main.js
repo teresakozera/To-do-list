@@ -1,11 +1,9 @@
 import "../css/fontello/css/fontello.css";
 
 // button + when there are lists of a user a hidden initial list + 6 lists that are permitted
-const LISTS_LIMIT = 8;
+const LISTS_LIMIT = 7;
 let listIndex = 0;
 let getListFromDB;
-let isInitialHidden = false;
-
 
 const refreshList = ()=> {
     const xhr = new XMLHttpRequest();
@@ -22,11 +20,6 @@ const refreshList = ()=> {
             $('.list').remove()
 
             getListFromDB = JSON.parse(xhr.response);
-            if (getListFromDB.length > 0) {
-                isInitialHidden = true;
-            } else {
-                isInitialHidden = false;
-            }
 
             for (let i = 0; i < getListFromDB.length; i++) {
                 const parentDiv = document.getElementsByClassName('lists')[0];
@@ -47,31 +40,12 @@ const refreshList = ()=> {
 
                 let label = "";
                 listTitle.addEventListener('keydown', (e) => {
-                    switch(e.key)
-                    {
-                        case "Backspace": 
-                        case "Enter":
-                        case "Shift":
-                        case "Alt":
-                        case "Tab":
-                        case "Control":
-                        case "CapsLock":
-                        case "Escape":
-                        case "ContextMenu":
-                        case "AltGraph":
-                        case "Meta":
-                        case "ArrowUp":
-                        case "ArrowDown":
-                        case "ArrowRight":
-                        case "ArrowLeft":
-                            break;
-                        default:
-                            console.log(e.key);
-                            label += e.key;
-                            break;
-                    }
+                    console.log('In event lsitener for lists, onload');
+                    // checking the keys and assigning proper values to the labels
+                    label = manageKeysForLabels(listTitle, e, label);
 
-                    listTitle.setAttribute("value", `${label}`);
+                    listTitle.setAttribute("value", `${getListFromDB[i].name.concat(label)}`);
+                    $(listTitle).setCursorPosition(`${listTitle.value.length}`);
                 });
 
                 const listHeader = document.createElement('div');
@@ -130,45 +104,27 @@ const refreshList = ()=> {
                     labelItem.setAttribute("value", `${getListFromDB[i].items[j].name}`);
 
                     let label = "";
+                    // labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
                     labelItem.addEventListener('keydown', (e) => {
-                        switch(e.key)
-                        {
-                            case "Backspace": 
-                            case "Enter":
-                            case "Shift":
-                            case "Alt":
-                            case "Tab":
-                            case "Control":
-                            case "CapsLock":
-                            case "Escape":
-                            case "ContextMenu":
-                            case "AltGraph":
-                            case "Meta":
-                            case "ArrowUp":
-                            case "ArrowDown":
-                            case "ArrowRight":
-                            case "ArrowLeft":
-                                break;
-                            default:
-                                console.log(e.key);
-                                label += e.key;
-                                break;
-                        }
+                    console.log('In event listener, onload, labelItem');
+                    label = manageKeysForLabels(labelItem, e, label);
 
-                        labelItem.setAttribute("value", `${label}`);
-                    });
+                    labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
+                    $(labelItem).setCursorPosition(`${labelItem.value.length}`);
+                    console.log(labelItem.getAttribute("value"));
+                });
 
 
-                    const deleteButton = document.createElement('BUTTON');
-                    $(deleteButton).addClass("icon-trash-empty");
-                    $(deleteButton).addClass("minus-task");
+                const deleteButton = document.createElement('BUTTON');
+                $(deleteButton).addClass("icon-trash-empty");
+                $(deleteButton).addClass("minus-task");
 
-                    divItem.appendChild(br);
-                    divItem.appendChild(listItem);
-                    divItem.appendChild(labelItem);
-                    divItem.appendChild(deleteButton);
+                divItem.appendChild(br);
+                divItem.appendChild(listItem);
+                divItem.appendChild(labelItem);
+                divItem.appendChild(deleteButton);
 
-                    listItems.appendChild(divItem);
+                listItems.appendChild(divItem);
 
                 }
 
@@ -196,31 +152,11 @@ const plusListBtn = document.getElementById('plus-list').addEventListener('click
         const listTitle = document.createElement('INPUT');
         let label = "";
         listTitle.addEventListener('keydown', (e) => {
-            switch(e.key)
-        {
-            case "Backspace": 
-            case "Enter":
-            case "Shift":
-            case "Alt":
-            case "Tab":
-            case "Control":
-            case "CapsLock":
-            case "Escape":
-            case "ContextMenu":
-            case "AltGraph":
-            case "Meta":
-            case "ArrowUp":
-            case "ArrowDown":
-            case "ArrowRight":
-            case "ArrowLeft":
-                break;
-            default:
-                console.log(e.key);
-                label += e.key;
-                break;
-        }
+        console.log('In event lsitener for lists, addList');
+        label = manageKeysForLabels(listTitle, e, label);
 
             listTitle.setAttribute("value", `${label}`);
+            $(listTitle).setCursorPosition(`${listTitle.value.length}`);
         });
 
         const listHeader = document.createElement('div');
@@ -262,6 +198,7 @@ const plusListBtn = document.getElementById('plus-list').addEventListener('click
 
 // event delegation- otherwise this event handler would not work for dynamically created elements
 $(document).on('click', '.plus-task', e => {
+    console.log('Plus task!');
     // start every item with a new line
     const br = document.createElement("br");
     // needed for the numeration of divs (needed for handling with the backend which)
@@ -283,33 +220,12 @@ $(document).on('click', '.plus-task', e => {
     labelItem.for = 'check-1';
     labelItem.htmlFor = `checkbox${index}`;
     let label = "";
+    // labelItem.setAttribute("value", `${getListFromDB[i].items[j].name.concat(label)}`);
     labelItem.addEventListener('keydown', (e) => {
-
-        switch(e.key)
-        {
-            case "Backspace": 
-            case "Enter":
-            case "Shift":
-            case "Alt":
-            case "Tab":
-            case "Control":
-            case "CapsLock":
-            case "Escape":
-            case "ContextMenu":
-            case "AltGraph":
-            case "Meta":
-            case "ArrowUp":
-            case "ArrowDown":
-            case "ArrowRight":
-            case "ArrowLeft":
-                break;
-            default:
-                console.log(e.key);
-                label += e.key;
-                break;
-        }
-
+        console.log('In event listener, add labelItem');
+        label = manageKeysForLabels(labelItem, e, label);
         labelItem.setAttribute("value", `${label}`);
+        $(labelItem).setCursorPosition(`${labelItem.value.length}`);
     });
 
     const deleteButton = document.createElement('BUTTON');
@@ -375,3 +291,51 @@ $(document).on('click', '.minus-task', e => {
     let divToDelete = e.currentTarget.parentNode;
     divToDelete.remove();
 });
+
+$.fn.setCursorPosition = function(pos) {
+    this.each(function(index, elem) {
+      if (elem.setSelectionRange) {
+        elem.setSelectionRange(pos, pos);
+      } else if (elem.createTextRange) {
+        var range = elem.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pos);
+        range.moveStart('character', pos);
+        range.select();
+      }
+    });
+    return this;
+  };
+
+  const manageKeysForLabels = (title, e, label) => {
+    //setting the coursor not to appear at the beginning of the input (it didn't have any impact on the value but looked
+    // confusing..)
+    $(title).setCursorPosition(`${title.value.length}`);
+    switch(e.key)
+    {
+        case "Backspace": 
+        case "Enter":
+        case "Shift":
+        case "Alt":
+        case "Tab":
+        case "Control":
+        case "CapsLock":
+        case "Escape":
+        case "ContextMenu":
+        case "AltGraph":
+        case "Meta":
+        case "ArrowUp":
+        case "ArrowDown":
+        case "ArrowRight":
+        case "ArrowLeft":
+        case "End":
+        case "Home":
+            break;
+        default:
+            console.log(e.key);
+            label += e.key;
+            break;
+    }
+    console.log(`label again: ${label}`);
+    return label;
+  };
