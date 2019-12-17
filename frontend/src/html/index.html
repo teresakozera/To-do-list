@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To-do-list</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="forms">
+        <div class="registration">
+            <form action="action_page.php" id="registerForm">
+                <div class="container">
+                    <h1>Register for have-it-all-to-do-list!</h1>
+                    <p>In order to create an account, please fill in the form below.</p>
+                    <hr>
+
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter Email" name="email" id="reg_email" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" id="reg_psw" required>
+
+                    <label for="psw-repeat"><b>Repeat Password</b></label>
+                    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="reg_psw_repeat" required>
+                    <hr>
+                    <button type="submit" class="registerbtn">Register</button>
+                </div>
+
+                <div class="container signin">
+                    <p>Already have an account? <a id="hrefLogin" href="#">Log in</a>.</p>
+                </div>
+            </form>
+        </div>
+        <div class="login" style="display: none">
+            <form class="form" action="main.html" id="loginForm">
+                <div class="container">
+                    <h1>Log in to your to-do-list!</h1>
+                    <p>Provide all the necessary information.</p>
+                    <hr>
+                    <div class="imgcontainer">
+                    </div>
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" id="log_email" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" id="log_psw" required>
+
+                    <button type="submit" class="loginbtn">Login</button>
+                </div>
+                <div class="container signup">
+                    <p>Wish to create an account? <a id="hrefRegister" href="#">Sign up</a>.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light">
+            <p>Authors: Kozera Teresa, Matejuk Kamil, Sołdaczuk Marek</p>
+    </nav>
+</body>
+
+</html>

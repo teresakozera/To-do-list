@@ -1,0 +1,158 @@
+
+* {box-sizing: border-box}
+
+
+:root {
+    --background-color: hsla(89, 81%, 69%, 0.29);
+}
+
+body, html {
+    height: 100%;
+  }
+
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../img/taskBackground.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    font-family: 'Merriweather', serif;
+    color: white;
+}
+
+.lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 5em;
+    margin-bottom: 65px;
+    margin-top: 30px;
+}
+.list {
+    padding: 16px;
+    margin: 0px 5px;
+    background-color: var(--background-color);
+    
+  }
+
+  .listexample {
+      display: none;
+  }
+
+  p {
+      color: white;
+      font-weight: bold;
+  }
+  
+  input[type="checkbox"]{
+    -webkit-appearance: initial;
+    appearance: initial;
+    width: 15px;
+    height: 15px;
+    margin: 5px 0;
+    border: none;
+    background: white;
+    position: relative;
+}
+input[type="checkbox"]:checked:after {
+    font-family: "fontello";
+    content: "\e808";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.plus-task {
+    margin-top: 5px;
+}
+
+.item {
+    display: flex;
+}
+
+nav ul {
+    z-index: 100;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color: var(--background-color);
+    grid-template-areas: "toDo toDo toDo toDo icons";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    list-style-type: none;
+    margin: 0;
+    padding-top: 10px;
+    -webkit-box-shadow: 10px 0px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 0px 10px 0px rgba(0,0,0,0.75);
+    font-size: 1.7rem;
+}
+
+.todolist {
+    grid-area: toDo;
+    justify-self: center;
+}
+
+.iconsDiv {
+  grid-area: icons;
+  justify-self: end;
+  display: flex;
+  flex-direction: row-reverse;
+
+}
+
+nav li a {
+    text-decoration: none;
+    padding:10px;
+}
+
+a, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none
+}
+
+.navDiv {
+    padding-bottom: 30px;
+}
+
+button {
+    font-family: 'Merriweather', serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: var(--background-color);
+} 
+
+.navbar-fixed-top {
+    background-color: var(--background-color);
+}
+
+@media screen and (max-width: 600px) {
+    .lists {
+        grid-template-columns: 1fr;
+        row-gap: 1em;
+        margin-bottom: 90px;
+        margin-top: 50px;
+    }
+
+    .navbar {
+        font-size: 0.5rem;
+        height: 3%;
+    }
+}
+
+@media screen and (min-width: 610px) and (max-width: 1024px) {
+    .lists {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
