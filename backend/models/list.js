@@ -5,7 +5,7 @@ const listSchema = new mongoose.Schema({
     name: {
         type: String,
         maxlength: 63,
-        default: 'New List'
+        default: ' '
     },
     userId: {
         type: String, 

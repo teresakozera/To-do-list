@@ -217,12 +217,9 @@ $(document).on('click', '.plus-task', e => {
     // start every item with a new line
     const br = document.createElement("br");
     // needed for the numeration of divs (needed for handling with the backend which)
-    let index;
-    if (isInitialHidden) {
-        index = event.target.previousSibling.children.length;
-    } else {
-        index = event.target.parentNode.children[1].children.length;
-    }
+    const index = event.target.previousSibling.children.length;
+
+    console.log(index);
 
     const divItem = document.createElement('div');
     // every div has a unique id- the information needed for the CRUD operations
@@ -280,7 +277,7 @@ $(document).on('click', '#saveBtn', e => {
     const list = document.getElementsByClassName(e.currentTarget.parentNode.className.split(" ")[1])[0];
 
     // list's name
-    const listName = list.children[0].children[0].attributes[0] ? list.children[0].children[0].attributes[0].value : 'New List';
+    const listName = list.children[0].children[0].attributes[0] ? list.children[0].children[0].attributes[0].value : ' ';
 
     const listItemsNumber = list.children[1].children.length;
     let listItems = [];
@@ -288,7 +285,7 @@ $(document).on('click', '#saveBtn', e => {
     for (let i = 0; i < listItemsNumber; i++)
     {
         listItems.push({
-            name: list.children[1].children[i].children[2].attributes[2] ? list.children[1].children[i].children[2].attributes[2].value : 'New item',
+            name: list.children[1].children[i].children[2].attributes[2] ? list.children[1].children[i].children[2].attributes[2].value : ' ',
             done: $(list.children[1].children[i].children[1]).is(":checked")            
         });
     }

@@ -112,12 +112,16 @@ body {
     
   }
 
+  .listexample {
+      display: none;
+  }
+
   p {
       color: white;
       font-weight: bold;
   }
   
-  /* input[type="checkbox"]{
+  input[type="checkbox"]{
     -webkit-appearance: initial;
     appearance: initial;
     width: 15px;
@@ -137,7 +141,7 @@ input[type="checkbox"]:checked:after {
     -moz-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-} */
+}
 
 .plus-task {
     margin-top: 5px;

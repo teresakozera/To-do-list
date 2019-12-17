@@ -36,6 +36,10 @@ body {
     
   }
 
+  .listexample {
+      display: none;
+  }
+
   p {
       color: white;
       font-weight: bold;

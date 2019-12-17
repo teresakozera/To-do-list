@@ -10,6 +10,7 @@ const app = express();
 
 // najpierw trzeba ustawic zmienna globalna
 // set todolist_jwtPrivateKey=mySecureKey
+// linux: export todolist_jwtPrivateKey=mySecureKey
 if(!config.get('jwtPrivateKey')){
     console.log('FATAL ERROR: jwtPrivateKey is not defined');
     process.exit(1);
