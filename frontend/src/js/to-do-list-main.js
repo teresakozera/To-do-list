@@ -47,14 +47,30 @@ const refreshList = ()=> {
 
                 let label = "";
                 listTitle.addEventListener('keydown', (e) => {
-                    if (e.key !== "Backspace") {
-                        // console.log(e.key);
-                        label += e.key;
-                        // console.log(label);
-                    } else {
-                        label = label.substring(0, label.length - 1);
-                        // console.log(`label: ${label}`);
+                    switch(e.key)
+                    {
+                        case "Backspace": 
+                        case "Enter":
+                        case "Shift":
+                        case "Alt":
+                        case "Tab":
+                        case "Control":
+                        case "CapsLock":
+                        case "Escape":
+                        case "ContextMenu":
+                        case "AltGraph":
+                        case "Meta":
+                        case "ArrowUp":
+                        case "ArrowDown":
+                        case "ArrowRight":
+                        case "ArrowLeft":
+                            break;
+                        default:
+                            console.log(e.key);
+                            label += e.key;
+                            break;
                     }
+
                     listTitle.setAttribute("value", `${label}`);
                 });
 
@@ -115,14 +131,30 @@ const refreshList = ()=> {
 
                     let label = "";
                     labelItem.addEventListener('keydown', (e) => {
-                        if (e.key !== "Backspace") {
-                            // console.log(e.key);
-                            label += e.key;
-                            // console.log(label);
-                        } else {
-                            label = label.substring(0, label.length - 1);
-                            // console.log(label);
+                        switch(e.key)
+                        {
+                            case "Backspace": 
+                            case "Enter":
+                            case "Shift":
+                            case "Alt":
+                            case "Tab":
+                            case "Control":
+                            case "CapsLock":
+                            case "Escape":
+                            case "ContextMenu":
+                            case "AltGraph":
+                            case "Meta":
+                            case "ArrowUp":
+                            case "ArrowDown":
+                            case "ArrowRight":
+                            case "ArrowLeft":
+                                break;
+                            default:
+                                console.log(e.key);
+                                label += e.key;
+                                break;
                         }
+
                         labelItem.setAttribute("value", `${label}`);
                     });
 
@@ -164,14 +196,30 @@ const plusListBtn = document.getElementById('plus-list').addEventListener('click
         const listTitle = document.createElement('INPUT');
         let label = "";
         listTitle.addEventListener('keydown', (e) => {
-            if (e.key !== "Backspace") {
-                // console.log(e.key);
+            switch(e.key)
+        {
+            case "Backspace": 
+            case "Enter":
+            case "Shift":
+            case "Alt":
+            case "Tab":
+            case "Control":
+            case "CapsLock":
+            case "Escape":
+            case "ContextMenu":
+            case "AltGraph":
+            case "Meta":
+            case "ArrowUp":
+            case "ArrowDown":
+            case "ArrowRight":
+            case "ArrowLeft":
+                break;
+            default:
+                console.log(e.key);
                 label += e.key;
-                // console.log(label);
-            } else {
-                label = label.substring(0, label.length - 1);
-                // console.log(`label: ${label}`);
-            }
+                break;
+        }
+
             listTitle.setAttribute("value", `${label}`);
         });
 
@@ -219,8 +267,6 @@ $(document).on('click', '.plus-task', e => {
     // needed for the numeration of divs (needed for handling with the backend which)
     const index = event.target.previousSibling.children.length;
 
-    console.log(index);
-
     const divItem = document.createElement('div');
     // every div has a unique id- the information needed for the CRUD operations
     divItem.id = `${index}`;
@@ -238,14 +284,31 @@ $(document).on('click', '.plus-task', e => {
     labelItem.htmlFor = `checkbox${index}`;
     let label = "";
     labelItem.addEventListener('keydown', (e) => {
-        if (e.key !== "Backspace") {
-            // console.log(e.key);
-            label += e.key;
-            // console.log(label);
-        } else {
-            label = label.substring(0, label.length - 1);
-            // console.log(label);
+
+        switch(e.key)
+        {
+            case "Backspace": 
+            case "Enter":
+            case "Shift":
+            case "Alt":
+            case "Tab":
+            case "Control":
+            case "CapsLock":
+            case "Escape":
+            case "ContextMenu":
+            case "AltGraph":
+            case "Meta":
+            case "ArrowUp":
+            case "ArrowDown":
+            case "ArrowRight":
+            case "ArrowLeft":
+                break;
+            default:
+                console.log(e.key);
+                label += e.key;
+                break;
         }
+
         labelItem.setAttribute("value", `${label}`);
     });
 
