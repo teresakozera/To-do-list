@@ -81,12 +81,12 @@ git clone https://github.com/teresakozera/To-do-list.git
 ## Usage
 The app is quite simple to use. After reaching the website _[https://agile-reef-98211.herokuapp.com/](https://agile-reef-98211.herokuapp.com/)_ what you'll see is the view presented as in the screenshot below.
 
-![](frontend/src/img/indexScreen.PNG)
-
+![](frontend/img/indexScreen.PNG)
 
 After signing up you get access to your own to-do list. You can create many different lists with tasks that can help you organize your time.
+Every list modification has to be confirmed by clicking on the "Save" button.
 
-![](frontend/src/img/mainScreen.PNG)
+![](frontend/img/mainScreen.PNG)
 
 All the changes are set in the database so your tasks will never get lost.
 However you can be assured about your data safety. 
